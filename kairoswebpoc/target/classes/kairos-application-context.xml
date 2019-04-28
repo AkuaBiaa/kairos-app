@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Points-->
+    <bean id="pointsDetail" class="kairos.poc.web.kairoswebpoc.pojo.Points">
+        <constructor-arg index="0" value="0"/>
+        <constructor-arg index="1" value=""/>
+        <constructor-arg index="2" value=""/>
+        <property name="points" value="0"/>
+        <property name="tasks" value=""/>
+        <property name="time" value="0"/>
+    </bean>
+    <!--KairosMailBot-->
+    <bean id="kairosMailBot" class="kairos.poc.web.kairoswebpoc.service.KairosMailBot">
+        <property name="securitas" ref="securitas"/>
+    </bean>
+    <!--Securitas-->
+    <bean id="securitas" class="kairos.poc.web.kairoswebpoc.utility.Securitas">
+        <property name="user" value="kairos.mail.bot@gmail.com"/>
+        <property name="pass" value="kairos419"/>
+    </bean>
+    <!--PersistPointsToFile-->
+    <bean id="persistPointsToFile" class="kairos.poc.web.kairoswebpoc.service.PersistPointsToFile">
+    </bean>
+    <!--PointResourceService-->
+    <bean id="pointResourceServiceImp" class="kairos.poc.web.kairoswebpoc.service.PointResourceService">
+        <property name="pointsDetail" ref="pointsDetail"/>
+        <property name="storageServiceImp" ref="pointStorageService"/>
+        <property name="persistPointsToFile" ref="persistPointsToFile"/>
+    </bean>
+
+    <!--PointStorageServiceImp-->
+    <bean id="pointStorageService" class="kairos.poc.web.kairoswebpoc.service.PointStorageServiceImp">
+        <property name="pointResourceService" ref="pointResourceServiceImp"/>
+    </bean>
+</beans>

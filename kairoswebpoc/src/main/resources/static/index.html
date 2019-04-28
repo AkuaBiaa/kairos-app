@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="mainModule">
+<!-- Todo:
+1) Add functionality to button, enter pointsDetail. Recieves input, and stores
+in an array, when posted.
+2) Array then writes to txt file
+3) View the displays the number of pointsDetail entered.
+-->
+<head>
+    <meta charset="UTF-8">
+    <title>Kairos</title>
+    <link rel="stylesheet" href="css/home.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+<div ng-controller="MainController">
+    <h3> {{title}} </h3>
+    <input type="search" id="task-name" name="firstname" placeholder="{{pointPalceholder}}" ng-model="points"/><br>
+    <div>
+        <input class="button buttonGreen"type="submit" value="{{submitText}}" ng-click="postPoints()"><br>
+        <input class="button buttonGreen"type="submit" value="{{viewPoints}}" ng-click="fetchPoints()">
+    </div>
+</div>
+
+</body>
+</html>

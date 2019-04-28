@@ -1,0 +1,10 @@
+kairos\poc\web\kairoswebpoc\Config\KairosConfig.class
+kairos\poc\web\kairoswebpoc\server\KairosWebServer.class
+kairos\poc\web\kairoswebpoc\service\PointResourceService.class
+kairos\poc\web\kairoswebpoc\service\KairosMailBot$1.class
+kairos\poc\web\kairoswebpoc\service\PointStorageService.class
+kairos\poc\web\kairoswebpoc\service\PointStorageServiceImp.class
+kairos\poc\web\kairoswebpoc\utility\Securitas.class
+kairos\poc\web\kairoswebpoc\pojo\Points.class
+kairos\poc\web\kairoswebpoc\service\KairosMailBot.class
+kairos\poc\web\kairoswebpoc\service\PersistPointsToFile.class

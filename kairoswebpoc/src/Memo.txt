@@ -1,0 +1,228 @@
+-------Spring: How to & Skill Memo------
+*Use Spring initilzr or Create Maven project sand add relevant dependencies
+*Spring boot identifies key classes such as main application, rest resource and configuration, by
+scanning for spring annotations
+*Configuration:
+    + Create XML Spring config into the application-context that wires the objects or beans together
+    + Create a configration class:
+        +@Configuration
+        +@ImportResource({"classpath*:kairos-application-context.xml"})
+
+8/20/18
+*Rest service connected successfully - called a GET Request from an endpoint. And received a response from java.
+*Debugging: Used chrome developers break on exception to narrow down root cause of broken html page is due to
+some dependency injected incorrectly or some. Was trying to add a custom controller to another controller, \
+when Server controller has not yet existed.
+    +Code: app.controller("MainController",["$scope",MainController,ServerController]); //dependencies in brackets
+    +Message:
+    angular.js:9228 Error: [$injector:itkn] http://errors.angularjs.org/1.2.5/$injector/itkn?p0=function%20(%24scope)%7B%0D%0A%20%20%20%20var%20totalPoints%20%3D%200%3B%0D%0A%20%20%20%20%24scope.title%20%3D%20%22Kairos%22%3B%0D%0A%20%20%20%20%24scope.pointPalceholder%20%3D%20%22Enter%20points...%22%3B%0D%0A%20%20%20%20%24scope.pointsDetail%20%3D%20%22%22%3B%0D%0A%20%20%20%20%24scope.submitText%20%3D%20%22Post%22%3B%0D%0A%20%20%20%20%24scope.viewPoints%20%3D%20%22View%20Points%22%3B%0D%0A%20%20%20%20%24scope.displayTotalPoints%20%3D%20totalPoints%3B%0D%0A%0D%0A%20%20%20%20%24scope.runTotalPoints%20%3D%20function%20()%7B%0D%0A%20%20%20%20%20%20%20%20if(%24scope.pointsDetail.includes(%22%2C%22))%7B%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20totalPoints%20%2B%3D%20%24scope.pointsDetail.split(%22%2C%22).length-1%3B%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%24scope.displayTotalPoints%20%3D%20totalPoints%3B%0D%0A%20%20%20%20%20%20%20%20%7D%0D%0A%20%20%20%20%20%20%20%20console.info(%22Total%20points%20%3D%20%22%2BtotalPoints)%3B%0D%0A%20%20%20%20%20%20%20%20ServerController.postPoints(totalPoints)%3B%0D%0A%20%20%20%20%20%20%20%20%24scope.pointsDetail%20%3D%20%22%22%3B%0D%0A%20%20%20%20%20%20%20%20logPointsDownload(totalPoints%2Cscope.pointPalceholder)%3B%0D%0A%20%20%20%20%7D%3B%0D%0A%0D%0A%7D
+        at MINERR_ASSET:22
+
+
+8/22/18
+
+Current:
+    Rest service created and callable. Last attempt the JSONObject datatype of get service failed with 500.
+Aim is to fetch the point from the REST service through the UI.
+
+Progress:
+    1) Refactored the REST to String datatype and thats in JSONformat so the point can be easily accessed and refrenced from javascript. 2) The script was refactored
+
+Next:
+    Make the call and see if the point is two way bind. Once POC is done - draft scalable design to save into a text file that acts as a storage medium, and functionality to email to custom kairos-bot@gmail.com
+
+
+
+8/25/18
+Progress:
+    +Http get successful.
+
+Learned:
+    +Make sure to inject controller dependencies - e.g ng $http to the controller
+
+Next:
+    +Utilize Http put
+
+9/2/18
+
+Progress:
+    Tested put via endpoint call using postman. Proper signature of REST endpoint and call is
+    For HTTP Call: http://localhost:8080/pointService/savePoints/30
+    For REST service: @PutMapping("/savePoints/{pointsDetail}")
+
+Next:
+    Fix button fuctions: Post to PUT URL, and "Post" text to "Submit", and GET ULR to the View Points Button
+    Create Point obect variables: task, pointsDetail, and time
+    Create csv text file storage structure
+    Prepare Drive Backup for relevant projects of intelli
+
+9/3/18
+ Progress:
+    Fix button fuctions: Post to PUT URL, and "Post" text to "Submit", and GET ULR to the View Points Button
+    Refactored two-way pinding and cleaned up code
+
+
+ Next:
+    Refactor ajs post to put
+    Prepare Drive Backup for relevant projects of intellij
+    Create csv text file storage structure
+    Create Point obect variables: task, pointsDetail, and time
+
+9/8/18
+    kairos successfully workings with expected MVF - posting and viewing pointsDetail using Spring REST service, w/ tomcat.
+    Next:
+        Add validation check.
+            +pointsDetail value, should be reset once post is clicked to avoid over summation
+            +Formating should be checked on the javascritpt application side
+        Backup project into G-drive, and Github
+
+9/10/18
+    Progress:
+        Added validation for point format entry
+    Next:
+        Fix accumulative pointsDetail when subsequent post is sent. Rest the pointsDetail, and use displayPoints or other var for ngModel, instead of pointsDetail for all updates.
+
+
+9/16/18
+    Progress:
+        +Integrateed mailer service, and security class to the kairos app
+        +Started design breakdown for service
+    Next:
+        +Complete design breakdown by converting Todos into sprint tasks
+        +implement at lease one functional increment of sprint task
+
+
+9/17/18
+    Progress:
+        +Refactored server to own module
+        +Started dependency injection by using @ComponentScan
+    Next:
+        +Complete @ComponentScan, and utilize dependency injection for relevant classes and instantiation
+
+9/18/18
+    Progress:
+        +Researched on spring - how do we configure the beans via java or xml in spring boot
+    Next:
+        +Retest the apps functionality, consider how we setup-wire all the dependencies at run time
+
+9/19/18
+Progress:
+    +Added loggger functinality to log all spring boot bean classes that are available + spring boot adds these automatically
+    if the class has hte anotation
+Next:
+    +psuedo skim and outline bean design  using refernece
+        +http://www.springboottutorial.com/spring-boot-java-xml-context-configuration
+    +create a config folder and class and define your class that will bind your application-context
+
+----9-22-18-----
+Progress:
+    +Created Spring Bean XML applciation context, and configuration file for project
+    +Added Security bean definition for mailing purpose
+Next:
+    +Fix build ish
+    +Add other bean dependencies to the applciation context
+    +
+-------9-22-18
+Progress:
+    +Debugged Maven Build and looked into SpringBootTest - can be later optimized here
+    +Fixed by commenting out test annotations
+        +possibly add this bean to fix error org.springframework:spring-test
+Next:
+    +Continue w/ Dev by running service and checking if psring wires the beans properly w/ error free
+
+
+---9/25/18-----
+Progress:
+    +Wiring up bean for pointsToStore detail
+Next:
+    +Finish up pointsToStore detail and reference relavtn objects for beans
+
+----10/3/18----
+    Progress:
+        +Started reprocess design as:
+            +PointGeneratorService >> PointStorageService >> PersistPointsToFile
+    Next:
+        +Implement Point pojo mapping -> convert @Post and @Get resources to Points object and unit test
+
+
+--10-11-18--
+Progress:
+    +Process design optimized for refined points object from UI, and storing object of points detail into list
+    +Fixed server start fail >> resolved KairosMailBot
+Next:
+    + Implement UI with jsonified points detail, mapping unto REST resource, and storing unto points detail list
+
+Progress: debugging for jsonified code
+    response.data.points !== null >> how is this passing into the body of the statement. When the points == undefined?.
+    Next:
+    Use this logic of undefined before null. Ideally should be only one.
+    if(response.data.points !== undefined)
+        console.log("Post request"+new Date);
+Progress:
+    +Fixed UI points From each post
+Next:
+    +Add object mapping and clear functionality to clear text after post is sent.
+
+
+Progress:
+    +UI posts and prints proper posted values
+    +Get points function refactored to return total points
+    +Get points detail object returned to fetch
+
+Next:
+    +Test refactored code
+    +Fix post points and get points to be functional and responsive
+    +Create collection list to store points and use DateTS as key for each points >> future refactor to pointsDetail
+    +STatr unit testing
+
+Progress:
+    +Updated rest endpoints to make calls on UI more fully functional.
+    +Debugged returned rest points for UI
+Next:
+    +REST endpoints object
+
+10/24/20181
+Progress:
+    +Unit testing points details
+    +Refactored Points pojo to match .ts programs
+Next:
+    +Debug unit test before proceeding to setup seperate endpoint for calling
+
+---10/24/2018---
+Progress
+    +Debugged code and tested return statement
+Next
+    +Call URL unto the ui server-side code -> http://localhost:8080/pointService/savePoints/
+
+---10/25/2018---
+Progress:
+    +Regression tested the UI UX functions for posting points, viewing points and validating points
+Next:
+    +Focus on the design of the application and description of each component
+        +Version 1: Angular 1, pojo object, Writting to file (Synched w/ Google Drive), Sending Email EOD by 12:00 AM (JavaTime/Spring)
+        +Version 2: Angular 5+(Post,View Points (Total, and Rows), mongo db, node-js service w/ UI, log points to file
+        +Version 3: Angular 5+, mongo db, node-js service w/ UI and Flexbox
+
+---10/31/18---
+Objective:
+    +Continue version 1, fully functional pieces: pojo object
+    +Backup to gDrive
+Progress:
+    +Process redesign - thinking of UI UX
+    +Pojo already exists for objects
+Next:
+    +Create Backlog : Before program closes, save points to file.
+    +Continue version 1: Add fetchPoints Detail
+
+11/4/2018
+    Progress:
+        +Downloaded Google Drive Backup to Backup 2018 Projects and AJS Demo
+        +Refactored point service and resource classes for better control flow
+        +Created point resource class to save pojo from UI
+        ---
+        +control flow beans configured and implemented
+    Next:
+        +configure auto backup of files g drive local to cloud
+        +Test pojo submission
+        +Implement and configure the beans for control flow of:
+        >>PointResourceService >>PointStorageServiceImp >>PersistPointsToFile >>KairosMailBot
