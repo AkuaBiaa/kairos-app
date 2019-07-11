@@ -45,6 +45,7 @@ public class PointResourceService {
     @PutMapping("/savePoints/{points}")
     public int savePoints(@PathVariable String points) {
         totalPoints += Integer.parseInt(points);
+        writeToFile(String.valueOf(totalPoints));
         System.out.println("Completed @Put Endpoint: Current points " + totalPoints);
         return totalPoints;
     }
@@ -53,11 +54,22 @@ public class PointResourceService {
     @PutMapping("/savePointsDetail/{points}")
     public void savePoints(@PathVariable Points points) {
         totalPoints += points.getPoints();
+        writeToFile(String.valueOf(totalPoints));
         System.out.println("Completed @Put Endpoint: Current points " + totalPoints);
         System.out.println("Saving points detail...");
         storageServiceImp.savePoints(points);
         System.out.println("Persisting points to file....");
         persistPointsToFile.persistPointsIntoTextFile(storageServiceImp.getPointsDetail());
+    }
+    
+    private void writeToFile(@PathVariable String points) {
+        try (
+            BufferedWriter writer = new BufferedWriter(new FileWriter("ScoreKeeper"))
+        ) {
+            writer.append("Task: " + getTask() +"Points: " + points + "|| Date: " + getTime());//initially .write
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
     }
 
     public void setPointsDetail(Points pointsDetail) {
